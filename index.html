@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Telegram Mini App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <p>Your username: <span id="username">Loading...</span></p>
+    <img id="profilePhoto" src="" alt="Your profile photo" style="display:none;">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // When the Mini App loads, Telegram provides user data
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            // Display username
+            document.getElementById('username').textContent = user.username || 'No username set';
+
+            // Display profile photo if available
+            if (user.photo_url) {
+                document.getElementById('profilePhoto').src = user.photo_url;
+                document.getElementById('profilePhoto').style.display = 'block';
+            }
+        } else {
+            document.getElementById('username').textContent = 'Error: Could not load user data';
+        }
+
+        // Expand the Mini App to full screen
+        window.Telegram.WebApp.expand();
+    </script>
+</body>
+</html>
